@@ -37,7 +37,7 @@
     </el-dialog>
 
     <div class="manage-header">
-      <el-button type="primary" @click="addUser">+ 新增</el-button>
+<!--      <el-button type="primary" @click="addUser">+ 新增</el-button>-->
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -53,8 +53,8 @@
         :tableLabel="tableLabel"
         :config="config"
         @changePage="getList()"
-        @edit="editUser"
-        @del="delUser"
+        @edit="editState"
+        @del="delState"
     ></common-table>
   </div>
 </template>
@@ -83,6 +83,11 @@ export default {
       },
       operateFormLabel: [
         {
+          model: 'name',
+          label: '姓名',
+          type: 'input'
+        },
+        {
           model: 'sit_time',
           label: '久坐时间',
           type: 'input'
@@ -107,7 +112,7 @@ export default {
       tableLabel: [
         {
           prop: 'id',
-          label: '用户id',
+          label: 'id',
         },
         {
           prop: 'name',
@@ -130,14 +135,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-user-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-state-info', this.operateForm).then(res => {
           console.log(res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-user-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-state-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -155,10 +160,7 @@ export default {
           this. operateForm = {
             name: '',
             // addr: '',
-            age: '',
-            birth: '',
-            sex: '',
-            type: '',
+            sit_time:''
           }
     },
     getList(name = '') {
@@ -189,19 +191,25 @@ export default {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then( () => {
-        const id = row.id
-        print(row.id)
-        this.$http.post('http://localhost:5000/delete-user', {
-          params: { id }
-        }).then(res => {
-          this.$message({
-            type: 'success',
-            message: '删除成功'
-          })
-          this.getList()
-        })
-      })
+      }).then(() => {
+        let id = row.id;
+        console.log(row.id)
+        console.log(id)
+        this.$http.delete(`http://localhost:5000/delete-state-info/${id}`)
+            .then(res => {
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              });
+              this.getList();
+            })
+            .catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消删除'
+              });
+            });
+      });
     }
   },
   created() {

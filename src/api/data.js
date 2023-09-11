@@ -39,7 +39,7 @@ export const getState = (params) => {
   })
 }
 
-export const getRobotState = (params) => {
+export const getLocation = (params) => {
   return axios.request({
     url: 'http://localhost:5000/read-location-info',
     method: 'get',

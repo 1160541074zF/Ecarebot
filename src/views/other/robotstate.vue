@@ -35,7 +35,7 @@
     </el-dialog>
 
     <div class="manage-header">
-      <el-button type="primary" @click="addUser">+ 新增</el-button>
+      <el-button type="primary" @click="addRoboState">+ 新增</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -51,8 +51,8 @@
         :tableLabel="tableLabel"
         :config="config"
         @changePage="getList()"
-        @edit="editUser"
-        @del="delUser"
+        @edit="editRoboState"
+        @del="delRoboState"
     ></common-table>
   </div>
 </template>
@@ -137,7 +137,7 @@ export default {
       }
     },
     // 添加
-    addState() {
+    addRoboState() {
       this.isShow = true
       this.operateType = 'add',
           this. operateForm = {
@@ -152,17 +152,18 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.list
+        this.tableData = res.location
+        console.log(this.tableData)
         this.config.total = res.count;
         this.config.loading = false;
       });
     },
-    editState(row) {
+    editRoboState(row) {
       this.operateType = 'edit'
       this.isShow = true
       this.operateForm = row
     },
-    delState(row) {
+    delRoboState(row) {
       this.$confirm("此操作将永久删除该文件，是否继续", "提示", {
         confirmButtonText: '确认',
         cancelButtonText: '取消',

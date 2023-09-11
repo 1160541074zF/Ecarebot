@@ -18,13 +18,13 @@ export default {
               icon: 's-home',
               url: 'user/index'
             },
-            {
-              path: '/test',
-              name: 'test',
-              label: 'test',
-              icon: 's-home',
-              url: 'test/test.vue'
-            },
+            // {
+            //   path: '/test',
+            //   name: 'test',
+            //   label: 'test',
+            //   icon: 's-home',
+            //   url: 'test/test.vue'
+            // },
             {
               label: '用户管理',
               icon: 'user',
@@ -50,13 +50,13 @@ export default {
                   icon: 'setting',
                   url: 'user/state.vue'
                 },
-                {
-                  path: '/healthstate',
-                  name: 'healthstate',
-                  label: '健康状态',
-                  icon: 'setting',
-                  url: 'user/health.vue'
-                }
+                // {
+                //   path: '/healthstate',
+                //   name: 'healthstate',
+                //   label: '健康状态',
+                //   icon: 'setting',
+                //   url: 'user/health.vue'
+                // }
               ]
             },
             // {

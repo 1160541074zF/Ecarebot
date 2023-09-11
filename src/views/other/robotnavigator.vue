@@ -20,7 +20,7 @@
     </el-dialog>
 
     <div class="manage-header">
-      <el-button type="primary" @click="addUser">+ 新增</el-button>
+      <el-button type="primary" @click="addLocation">+ 新增</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -36,8 +36,8 @@
         :tableLabel="tableLabel"
         :config="config"
         @changePage="getList()"
-        @edit="editUser"
-        @del="delUser"
+        @edit="editLocation"
+        @del="delLocation"
     ></common-table>
   </div>
 </template>
@@ -46,20 +46,26 @@
 <script>
 import CommonFrom from '@/components/CommonForm.vue'
 import CommonTable from '@/components/CommonTable.vue'
-import {getState} from "@/api/data";
+import {getLocation} from "@/api/data";
 export default {
-  name: 'robotstate',
+  name: 'robotnavigator',
   components: { CommonFrom, CommonTable },
   data() {
     return {
       operateType: 'add',
       isShow: false,
       navigator: {
+        id: '',
         location1: '',
         location2: '',
         location3: '',
       },
       operateFormLabel: [
+        {
+          model: 'id',
+          label: 'id',
+          type: 'input'
+        },
         {
           model: 'location1',
           label: '位置1',
@@ -135,6 +141,10 @@ export default {
       tableData: [],
       tableLabel: [
         {
+          prop: 'id',
+          label: 'id',
+        },
+        {
           prop: 'location1',
           label: '位置1',
         },
@@ -157,14 +167,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-state-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-location-info', this.operateForm).then(res => {
           console.log("提交的数据"+res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-state-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-location-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -174,32 +184,34 @@ export default {
       }
     },
     // 添加
-    addState() {
+    addLocation() {
       this.isShow = true
       this.operateType = 'add',
           this. operateForm = {
-            location: '',
-            coordinate: ''
+            id: '',
+            location1: '',
+            location2: '',
+            location3: ''
           }
     },
     getList(name = '') {
       this.config.loading = true;
       name ? (this.config.page = 1) : '';
-      getState({
+      getLocation({
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.list; // 将后端返回的数据存储到tableData中
+        this.tableData = res.location_data;
         this.config.total = res.count;
         this.config.loading = false;
       });
     },
-    editState(row) {
+    editLocation(row) {
       this.operateType = 'edit'
       this.isShow = true
       this.operateForm = row
     },
-    delState(row) {
+    delLocation(row) {
       this.$confirm("此操作将永久删除该文件，是否继续", "提示", {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
