@@ -78,33 +78,75 @@ export default {
         // coordinate: '',
         id: '',
         name: '',
-        heart_rate: '',
-        cholesterol: '',
-        hypoglycemia: ''
+        state: '',
+        meanHR: '',
+        rmssd: '',
+        ANS: '',
+        stressIndex: '',
+        HRs: '',
+        arrhythmiaNum: '',
+        prob_AF: '',
+        prob_PXC: '',
+        prob_N_shape: '',
+        prob_other: ''
       },
       operateFormLabel: [
         {
-          model: 'heart_rate',
-          label: '心率',
+          model: 'id',
+          label: 'id',
           type: 'input'
         },
         {
-          model: 'cholesterol',
-          label: '血压',
+          model: 'name',
+          label: '姓名',
           type: 'input'
         },
         {
-          model: 'hypoglycemia',
-          label: '血糖',
+          model: 'data',
+          label: '日期',
+          type: 'input'
+        },
+        {
+          model: 'state',
+          label: '状态',
+          type: 'input'
+        },
+        {
+          model: 'meanHR',
+          label: '平均心率',
+          type: 'input'
+        },
+        {
+          model: 'rmssd',
+          label: '心率变异性',
+          type: 'input'
+        },
+        {
+          model: 'ANS',
+          label: '交感与副交感神经兴奋度',
+          type: 'input'
+        },
+        {
+          model: 'stressIndex',
+          label: '心脏压力指数',
           type: 'input'
         },
       ],
       operateForm: {
         id: '',
         name: '',
-        heart_rate: '',
-        cholesterol: '',
-        hypoglycemia: ''
+        data: '',
+        state: '',
+        meanHR: '',
+        rmssd: '',
+        ANS: '',
+        stressIndex: '',
+        HRs: '',
+        arrhythmiaNum: '',
+        prob_AF: '',
+        prob_PXC: '',
+        prob_N_shape: '',
+        prob_other: ''
       },
       formLabel: [
         {
@@ -127,16 +169,52 @@ export default {
           label: '姓名',
         },
         {
-          prop: 'heart_rate',
+          prop: 'data',
+          label: '日期',
+        },
+        {
+          prop: 'state',
+          label: '状态',
+        },
+        {
+          prop: 'meanHR',
+          label: '平均心率',
+        },
+        {
+          prop: 'rmssd',
+          label: '心率变异性',
+        },
+        {
+          prop: 'ANS',
+          label: '交感与副交感神经兴奋度',
+        },
+        {
+          prop: 'stressIndex',
+          label: '心脏压力指数',
+        },
+        {
+          prop: 'HRs',
           label: '心率',
         },
         {
-          prop: 'cholesterol',
-          label: '血压',
+          prop: 'arrhythmiaNum',
+          label: '节律异常片段个数',
         },
         {
-          prop: 'hypoglycemia',
-          label: '血糖',
+          prop: 'prob_AF',
+          label: '房颤风险',
+        },
+        {
+          prop: 'prob_PXC',
+          label: '房早室早风险',
+        },
+        {
+          prop: 'prob_N_shape',
+          label: '传导问题风险',
+        },
+        {
+          prop: 'prob_other',
+          label: '其他问题风险',
         },
       ],
       config: {
@@ -182,22 +260,40 @@ export default {
           }
     },
     getList(name = '') {
-      this.config.loading = true
-      name ? (this.config.page = 1) : ''
-      getState({
-        page: this.config.page,
-        name
-      }).then(({data: res}) => {
-        console.log(res)
-        this.tableData = res.user_state
-        // this.tableData = res.list.map(item => {
-        //   item.sexLabel = item.sex === 0 ? '女' : '男'
-        //   return item
-        // })
-        console.log("表格数据"+this.tableData)
-        this.config.total = res.count
-        this.config.loading = false
-      })
+      this.tableData = [
+        {
+          id: 1,
+          name: '张三',
+          data: '2023/9/11',
+          state: '1',
+          meanHR: '56',
+          rmssd: '0',
+          ANS: '0',
+          stressIndex: '0',
+          HRs: '0',
+          arrhythmiaNum: '0',
+          prob_AF: '0',
+          prob_PXC: '0',
+          prob_N_shape: '0',
+          prob_other: '0'
+        }
+      ]
+      // this.config.loading = true
+      // name ? (this.config.page = 1) : ''
+      // getState({
+      //   page: this.config.page,
+      //   name
+      // }).then(({data: res}) => {
+      //   console.log(res)
+      //   this.tableData = res.user_state
+      //   // this.tableData = res.list.map(item => {
+      //   //   item.sexLabel = item.sex === 0 ? '女' : '男'
+      //   //   return item
+      //   // })
+      //   console.log("表格数据"+this.tableData)
+      //   this.config.total = res.count
+      //   this.config.loading = false
+      // })
     },
     editState(row) {
       this.operateType = 'edit'

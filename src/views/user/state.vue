@@ -79,9 +79,24 @@ export default {
         id: '',
         name: '',
         sit_time: '',
-
+        state: '',
+        meanHR: '',
+        rmssd: '',
+        ANS: '',
+        stressIndex: '',
+        HRs: '',
+        arrhythmiaNum: '',
+        prob_AF: '',
+        prob_PXC: '',
+        prob_N_shape: '',
+        prob_other: ''
       },
       operateFormLabel: [
+        {
+          model: 'id',
+          label: 'id',
+          type: 'input'
+        },
         {
           model: 'name',
           label: '姓名',
@@ -92,11 +107,48 @@ export default {
           label: '久坐时间',
           type: 'input'
         },
+        {
+          model: 'state',
+          label: '状态',
+          type: 'input'
+        },
+        {
+          model: 'meanHR',
+          label: '平均心率',
+          type: 'input'
+        },
+        {
+          model: 'rmssd',
+          label: '心率变异性',
+          type: 'input'
+        },
+        {
+          model: 'ANS',
+          label: '交感与副交感神经兴奋度',
+          type: 'input'
+        },
+        {
+          model: 'stressIndex',
+          label: '心脏压力指数',
+          type: 'input'
+        },
       ],
       operateForm: {
         id: '',
         name: '',
         sit_time: '',
+        data: '',
+        state: '',
+        meanHR: '',
+        rmssd: '',
+        ANS: '',
+        stressIndex: '',
+        HRs: '',
+        arrhythmiaNum: '',
+        prob_AF: '',
+        prob_PXC: '',
+        prob_N_shape: '',
+        prob_other: ''
       },
       formLabel: [
         {
@@ -122,7 +174,54 @@ export default {
           prop: 'sit_time',
           label: '久坐时间',
         },
-
+        {
+          prop: 'data',
+          label: '日期',
+        },
+        {
+          prop: 'state',
+          label: '状态',
+        },
+        {
+          prop: 'meanHR',
+          label: '平均心率',
+        },
+        {
+          prop: 'rmssd',
+          label: '心率变异性',
+        },
+        {
+          prop: 'ANS',
+          label: '交感与副交感神经兴奋度',
+        },
+        {
+          prop: 'stressIndex',
+          label: '心脏压力指数',
+        },
+        {
+          prop: 'HRs',
+          label: '心率',
+        },
+        {
+          prop: 'arrhythmiaNum',
+          label: '节律异常片段个数',
+        },
+        {
+          prop: 'prob_AF',
+          label: '房颤风险',
+        },
+        {
+          prop: 'prob_PXC',
+          label: '房早室早风险',
+        },
+        {
+          prop: 'prob_N_shape',
+          label: '传导问题风险',
+        },
+        {
+          prop: 'prob_other',
+          label: '其他问题风险',
+        },
       ],
       config: {
         page: 1,
