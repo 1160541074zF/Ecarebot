@@ -32,7 +32,7 @@ export default {
                 {
                   path: '/user',
                   name: 'userinfo',
-                  label: '家庭成员信息',
+                  label: '用户管理',
                   icon: 'user',
                   url: 'user/index'
                 },
@@ -46,14 +46,14 @@ export default {
                 {
                   path: '/userstate',
                   name: 'userstate',
-                  label: '用户状态',
+                  label: '健康管理',
                   icon: 'setting',
                   url: 'user/state.vue'
                 },
                 // {
                 //   path: '/healthstate',
                 //   name: 'healthstate',
-                //   label: '健康状态',
+                //   label: '心率监测',
                 //   icon: 'setting',
                 //   url: 'user/health.vue'
                 // }
