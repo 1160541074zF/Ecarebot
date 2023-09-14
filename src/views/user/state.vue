@@ -37,14 +37,16 @@
     </el-dialog>
 
     <div class="manage-header">
-<!--      <el-button type="primary" @click="addUser">+ 新增</el-button>-->
+      <!--      <el-button type="primary" @click="addUser">+ 新增</el-button>-->
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
           :inline="true"
           ref="form"
       >
-        <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.keyword, searchForm.date)">搜索</el-button>
+        <!-- 添加日期选择器 -->
+        <el-date-picker v-model="searchForm.date" type="date" placeholder="选择日期"></el-date-picker>
       </common-from>
     </div>
 
@@ -137,7 +139,7 @@ export default {
         id: '',
         name: '',
         sit_time: '',
-        data: '',
+        date: '',
         state: '',
         meanHR: '',
         rmssd: '',
@@ -158,7 +160,8 @@ export default {
         }
       ],
       searchForm: {
-        keyword: ''
+        keyword: '',
+        date: ''
       },
       tableData: [],
       tableLabel: [
@@ -175,7 +178,7 @@ export default {
           label: '久坐时间',
         },
         {
-          prop: 'data',
+          prop: 'date',
           label: '日期',
         },
         {
@@ -262,19 +265,16 @@ export default {
             sit_time:''
           }
     },
-    getList(name = '') {
+    getList(name = '', date = '') {
       this.config.loading = true
       name ? (this.config.page = 1) : ''
       getState({
         page: this.config.page,
-        name
+        name: this.tableData.name,
+        date: date
       }).then(({data: res}) => {
         console.log(res)
         this.tableData = res.user_state
-        // this.tableData = res.list.map(item => {
-        //   item.sexLabel = item.sex === 0 ? '女' : '男'
-        //   return item
-        // })
         console.log("表格数据"+this.tableData)
         this.config.total = res.count
         this.config.loading = false
