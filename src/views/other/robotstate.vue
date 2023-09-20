@@ -36,6 +36,7 @@
 
     <div class="manage-header">
       <el-button type="primary" @click="addRoboState">+ 新增</el-button>
+      <el-button type="primary" @click="synchronisation">+ 同步</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -60,7 +61,7 @@
 <script>
 import CommonFrom from '@/components/CommonForm.vue'
 import CommonTable from '@/components/CommonTable.vue'
-import {getRobotState} from "@/api/data";
+import {getLocation} from "@/api/data";
 export default {
   name: 'robotstate',
   components: { CommonFrom, CommonTable },
@@ -71,7 +72,10 @@ export default {
       robotInfo: {
         id: '',
         location: '',
-        coordinate: ''
+        coordinate: '',
+        location1: '',
+        location2: '',
+        location3: '',
       },
       operateFormLabel: [
         {
@@ -84,10 +88,70 @@ export default {
           label: '坐标',
           type: 'input'
         },
+        {
+          model: 'location1',
+          label: '位置1',
+          type: 'select',
+          opts: [
+            {
+              value: 0,
+              label: '厨房'
+            },
+            {
+              value: 1,
+              label: '卧室'
+            },
+            {
+              value: 2,
+              label: '客厅'
+            }
+          ]
+        },
+        {
+          model: 'location2',
+          label: '位置2',
+          type: 'select',
+          opts: [
+            {
+              value: 0,
+              label: '厨房'
+            },
+            {
+              value: 1,
+              label: '卧室'
+            },
+            {
+              value: 2,
+              label: '客厅'
+            }
+          ]
+        },
+        {
+          model: 'location3',
+          label: '位置3',
+          type: 'select',
+          opts: [
+            {
+              value: 0,
+              label: '厨房'
+            },
+            {
+              value: 1,
+              label: '卧室'
+            },
+            {
+              value: 2,
+              label: '客厅'
+            }
+          ]
+        },
       ],
       operateForm: {
         location: '',
-        coordinate: ''
+        coordinate: '',
+        location1: '',
+        location2: '',
+        location3: '',
       },
       formLabel: [
         {
@@ -99,7 +163,12 @@ export default {
       searchForm: {
         keyword: ''
       },
-      tableData: [],
+      tableData: [
+        {
+          location: '卧室',
+          coordinate: ''
+        }
+      ],
       tableLabel: [
         {
           prop: 'location',
@@ -108,6 +177,18 @@ export default {
         {
           prop: 'coordinate:',
           label: '坐标',
+        },
+        {
+          prop: 'location1',
+          label: '位置1',
+        },
+        {
+          prop: 'location2',
+          label: '位置2',
+        },
+        {
+          prop: 'location3',
+          label: '位置3',
         },
       ],
       config: {
@@ -120,14 +201,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-state-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-location-info', this.operateForm).then(res => {
           console.log("提交的数据"+res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-state-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-location-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -136,25 +217,32 @@ export default {
         });
       }
     },
+    // 同步
+    synchronisation() {
+
+    },
     // 添加
     addRoboState() {
       this.isShow = true
       this.operateType = 'add',
           this. operateForm = {
             location: '',
-            coordinate: ''
+            coordinate: '',
+            location1: '',
+            location2: '',
+            location3: ''
           }
     },
     getList(name = '') {
       this.config.loading = true;
       name ? (this.config.page = 1) : '';
-      getRobotState({
+      getLocation({
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.location
-        console.log(this.tableData)
-        this.config.total = res.count;
+        this.tableData = res.location_info
+        console.log(this.tableData);
+        // this.config.total = res.location_info.length;
         this.config.loading = false;
       });
     },

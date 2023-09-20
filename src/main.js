@@ -16,7 +16,6 @@ Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = MessageBox.message
 
 Vue.use(ElementUI);
-
 Vue.config.productionTip = false
 
 // 导航守卫 实现路由的监听

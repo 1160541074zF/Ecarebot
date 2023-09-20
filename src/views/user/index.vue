@@ -13,7 +13,9 @@
         :inline="true"
         ref="form"
       >
-        <img :src="require('@/assets/images/user.png')" alt="加载图片" style="width: 100px;">
+        <img :src="require('@/assets/logo.png')" alt="加载图片" style="width: 100px;">
+<!--        <img :src=this.operateForm.image alt="加载图片" style="width: 100px;">-->
+<!--        <img :src="'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'" alt="加载图片" style="width: 100px;">-->
       </common-from>
 
       <div slot="footer" class="dialog-footer">
@@ -50,6 +52,7 @@
 import CommonFrom from '@/components/CommonForm.vue'
 import CommonTable from '@/components/CommonTable.vue'
 import {getUser} from '@/api/data.js'
+import {getPicture} from '@/api/data.js'
 import Vue from 'vue'
 import axios from 'axios'
 Vue.prototype.$axios = axios
@@ -68,6 +71,7 @@ export default {
         birth: '',
         type: ''
       },
+      hostUrl: 'http://localhsot:5000',
       imageUrl: '',
       operateFormLabel: [
         {
@@ -160,6 +164,17 @@ export default {
         {
           prop: 'image',
           label: '用户头像',
+          // 使用自定义的渲染函数来加载图片
+          render: (h, params) => {
+            return h('img', {
+              attrs: {
+                src: params.row.image, // 使用数据中的image属性作为图片的URL
+                alt: 'User Image',
+                width: '50',
+                height: '50',
+              },
+            });
+          },
         },
         {
           prop: 'name',
@@ -214,6 +229,16 @@ export default {
           this.isShow = false;
           this.getList();
         });
+        // this.operateForm.image = 'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'
+        this.$http.post('http://localhost:5000/save_image_and_train', this.operateForm.name, this.operateForm.image, {
+          withCredentials: true,
+        }).then(res => {
+          console.log("提交的数据"+res.data);
+          console.log("name"+this.operateForm.name)
+          console.log("image"+this.operateForm.image)
+          this.isShow = false;
+          this.getList();
+        });
       }
     },
     // 添加用户
@@ -230,10 +255,15 @@ export default {
       }
     },
     refreshPicture() {
-      // 生成一个随机数作为查询参数，以防止浏览器缓存
-      const randomQueryParam = `?random=${Math.random()}`;
-      // 更新图片路径，加上随机查询参数
-      this.imageUrl = `/assets/images/user.png${randomQueryParam}`;
+      // 调用 getPicture 函数来获取图像数据
+      getPicture()
+          .then(response => {
+            // 如果成功获取到数据，将图像URL赋值给 imageUrl 属性
+            this.operateForm.image = response.data.url;
+          })
+          .catch(error => {
+            console.error('获取图像失败', error);
+          });
     },
     getList(name = '') {
       this.config.loading = true
@@ -249,8 +279,8 @@ export default {
           item.typeLabel = item.type == 0 ? '老人' : '家属'
           return item
         })
-        const rowIndexToUpdate = 0;
-        this.tableData[rowIndexToUpdate].image = '/assets/images/user.png';
+        // const rowIndexToUpdate = 0;
+        // this.tableData[rowIndexToUpdate].image = '/assets/images/user.png';
         console.log("表格数据"+this.tableData)
         this.config.total = res.count
         this.config.loading = false

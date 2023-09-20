@@ -145,7 +145,7 @@ export default {
           label: 'id',
         },
         {
-          prop: 'location1',
+          prop: 'location1Label',
           label: '位置1',
         },
         {

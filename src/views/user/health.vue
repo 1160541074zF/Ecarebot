@@ -37,7 +37,7 @@
     </el-dialog>
 
     <div class="manage-header">
-      <el-button type="primary" @click="addUser">+ 新增</el-button>
+      <el-button type="primary" @click="addMonitor">+ 新增</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -45,6 +45,9 @@
           ref="form"
       >
         <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.date)">搜索</el-button>
+        <!-- 添加日期选择器 -->
+        <el-date-picker v-model="searchForm.date" type="date" placeholder="选择日期"></el-date-picker>
       </common-from>
     </div>
 
@@ -53,8 +56,8 @@
         :tableLabel="tableLabel"
         :config="config"
         @changePage="getList()"
-        @edit="editUser"
-        @del="delUser"
+        @edit="editMonitor"
+        @del="delMonitor"
     ></common-table>
   </div>
 </template>
@@ -131,6 +134,26 @@ export default {
           label: '心脏压力指数',
           type: 'input'
         },
+        {
+          model: 'arrhymiaNum',
+          label: '节律异常片段个数',
+          type: 'input'
+        },
+        {
+          model: 'prob_AF',
+          label: '房颤风险',
+          type: 'input'
+        },
+        {
+          model: 'prob_PXC',
+          label: '房早室早风险',
+          type: 'input'
+        },
+        {
+          model: 'prob_N_shape',
+          label: '传导问题风险',
+          type: 'input'
+        },
       ],
       operateForm: {
         id: '',
@@ -158,7 +181,72 @@ export default {
       searchForm: {
         keyword: ''
       },
-      tableData: [],
+      tableData: [
+        {
+          id: 1,
+          name: '张三',
+          date: '2023/9/11',
+          state: '1',
+          meanHR: '56',
+          rmssd: '0',
+          ANS: '0',
+          stressIndex: '0',
+          HRs: '0',
+          arrhythmiaNum: '0',
+          prob_AF: '0',
+          prob_PXC: '0',
+          prob_N_shape: '0',
+          prob_other: '0'
+        },
+        {
+          id: 2,
+          name: '张三',
+          date: '2023/9/12',
+          state: '1',
+          meanHR: '62',
+          rmssd: '0',
+          ANS: '1',
+          stressIndex: '1',
+          HRs: '0',
+          arrhythmiaNum: '0',
+          prob_AF: '0',
+          prob_PXC: '0',
+          prob_N_shape: '0',
+          prob_other: '0'
+        },
+        {
+          id: 3,
+          name: '张三',
+          date: '2023/9/13',
+          state: '1',
+          meanHR: '60',
+          rmssd: '0',
+          ANS: '0',
+          stressIndex: '0',
+          HRs: '0',
+          arrhythmiaNum: '0',
+          prob_AF: '0',
+          prob_PXC: '0',
+          prob_N_shape: '0',
+          prob_other: '0'
+        },
+        {
+          id: 4,
+          name: '张三',
+          date: '2023/9/13',
+          state: '1',
+          meanHR: '65',
+          rmssd: '0',
+          ANS: '1',
+          stressIndex: '0',
+          HRs: '0',
+          arrhythmiaNum: '0',
+          prob_AF: '0',
+          prob_PXC: '0',
+          prob_N_shape: '0',
+          prob_other: '0'
+        }
+      ],
       tableLabel: [
         {
           prop: 'id',
@@ -169,7 +257,7 @@ export default {
           label: '姓名',
         },
         {
-          prop: 'data',
+          prop: 'date',
           label: '日期',
         },
         {
@@ -220,7 +308,8 @@ export default {
       config: {
         page: 1,
         total: 30,
-        loading: false
+        loading: false,
+        selectedRowIndex: -1, // 初始化为-1，表示没有选中任何行
       }
 
     }
@@ -228,14 +317,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-user-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-monitor-info', this.operateForm).then(res => {
           console.log(res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-user-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-monitor-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -244,45 +333,61 @@ export default {
         });
       }
     },
+    handleTableRowClick(row, rowIndex) {
+      // 将选中行的行数分配给selectedRowIndex变量
+      this.selectedRowIndex = rowIndex;
+      console.log(this.selectedRowIndex)
+    },
+    // confirm() {
+    //   if (this.operateType === 'edit') {
+    //     console.log(this.operateForm.id)
+    //     this.tableData.id = this.operateForm.id;
+    //     console.log(this.operateForm.name)
+    //     this.tableData.name = this.operateForm.name;
+    //   }
+    // },
     refresh(){
 
     },
-    addState() {
+    // addMonitor() {
+    //   this.isShow = true
+    //   this.operateType = 'add',
+    //       this. operateForm = {
+    //         name: '',
+    //         // addr: '',
+    //         age: '',
+    //         birth: '',
+    //         sex: '',
+    //         type: '',
+    //       }
+    // },
+    addMonitor() {
       this.isShow = true
-      this.operateType = 'add',
-          this. operateForm = {
-            name: '',
-            // addr: '',
-            age: '',
-            birth: '',
-            sex: '',
-            type: '',
-          }
+      this.operateType = 'add'
+      this.operateForm = {
+        id: '',
+        name: '',
+        data: '',
+        state: '',
+        meanHR: '',
+        rmssd: '',
+        ANS: '',
+        stressIndex: '',
+        HRs: '',
+        arrhythmiaNum: '',
+        prob_AF: '',
+        prob_PXC: '',
+        prob_N_shape: '',
+        prob_other: ''
+      }
     },
-    getList(name = '') {
-      this.tableData = [
-        {
-          id: 1,
-          name: '张三',
-          data: '2023/9/11',
-          state: '1',
-          meanHR: '56',
-          rmssd: '0',
-          ANS: '0',
-          stressIndex: '0',
-          HRs: '0',
-          arrhythmiaNum: '0',
-          prob_AF: '0',
-          prob_PXC: '0',
-          prob_N_shape: '0',
-          prob_other: '0'
-        }
-      ]
+    getList(name = '', date = '') {
       // this.config.loading = true
       // name ? (this.config.page = 1) : ''
       // getState({
       //   page: this.config.page,
-      //   name
+      //   name,
+      //   date
       // }).then(({data: res}) => {
       //   console.log(res)
       //   this.tableData = res.user_state
@@ -295,12 +400,12 @@ export default {
       //   this.config.loading = false
       // })
     },
-    editState(row) {
+    editMonitor(row) {
       this.operateType = 'edit'
       this.isShow = true
       this.operateForm = row
     },
-    delState(row) {
+    delMonitor(row) {
       this.$confirm("此操作将永久删除该文件，是否继续", "提示", {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
@@ -308,7 +413,7 @@ export default {
       }).then( () => {
         const id = row.id
         print(row.id)
-        this.$http.post('http://localhost:5000/delete-user', {
+        this.$http.post('http://localhost:5000/delete-monitor', {
           params: { id }
         }).then(res => {
           this.$message({
