@@ -33,6 +33,11 @@ const routes = [
         name: 'robotstate',
         component: () => import('@/views/other/robotstate.vue')
       },
+      {
+        path: '/robotnavigator',
+        name: 'robotnavigator',
+        component: () => import('@/views/other/robotnavigator.vue')
+      },
     ]
   },
   {

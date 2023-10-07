@@ -47,6 +47,14 @@ export const getLocation = (params) => {
   })
 }
 
+export const getNavigator = (params) => {
+  return axios.request({
+    url: 'http://localhost:5000/read-navigator-info',
+    method: 'get',
+    params
+  })
+}
+
 export const getPicture = () => {
   return axios.request({
     url: 'http://localhost:5000/receive-image',

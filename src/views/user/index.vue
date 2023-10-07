@@ -72,7 +72,7 @@ export default {
         birth: '',
         type: ''
       },
-      hostUrl: 'http://localhsot:5000',
+      // hostUrl: 'http://localhsot:5000',
       imageUrl: require('@/assets/logo.png'),
       operateFormLabel: [
         {

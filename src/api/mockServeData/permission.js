@@ -84,13 +84,13 @@ export default {
                   icon: 'setting',
                   url: 'other/robotstate.vue'
                 },
-                // {
-                //   path: '/robotnavigator',
-                //   name: 'robotnavigator',
-                //   label: '机器人导航',
-                //   icon: 'setting',
-                //   url: 'other/robotnavigator.vue'
-                // }
+                {
+                  path: '/robotnavigator',
+                  name: 'robotnavigator',
+                  label: '机器人导航',
+                  icon: 'setting',
+                  url: 'other/robotnavigator.vue'
+                }
               ]
             }
           ],

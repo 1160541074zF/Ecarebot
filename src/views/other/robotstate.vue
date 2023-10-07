@@ -54,94 +54,115 @@ export default {
     return {
       operateType: 'add',
       isShow: false,
-      fieldMapping: {
-        1: '厨房',
-        2: '卧室',
-        3: '客厅',
-      },
+      // fieldMapping: {
+      //   1: '厨房',
+      //   2: '卧室',
+      //   3: '客厅',
+      // },
       robotInfo: {
         id: '',
-        location: '',
-        coordinate: '',
-        location1: '',
-        location2: '',
-        location3: '',
+        position_x: '',
+        position_y: '',
+        orientation_z: '',
+        orientation_w: '',
+        positon:''
+        // location1: '',
+        // location2: '',
+        // location3: '',
       },
       operateFormLabel: [
         {
-          model: 'location',
+          model: 'position_x',
+          label: 'position x',
+          type: 'input'
+        },
+        {
+          model: 'position_y',
+          label: 'position y',
+          type: 'input'
+        },
+        {
+          model: 'orientation_z',
+          label: 'orientation z',
+          type: 'input'
+        },
+        {
+          model: 'orientation_w',
+          label: 'orientation w',
+          type: 'input'
+        },
+        {
+          model: 'position',
           label: '位置',
           type: 'input'
         },
-        {
-          model: 'coordinate',
-          label: '坐标',
-          type: 'input'
-        },
-        {
-          model: 'location1',
-          label: '位置1',
-          type: 'select',
-          opts: [
-            {
-              value: 0,
-              label: '厨房'
-            },
-            {
-              value: 1,
-              label: '卧室'
-            },
-            {
-              value: 2,
-              label: '客厅'
-            }
-          ]
-        },
-        {
-          model: 'location2',
-          label: '位置2',
-          type: 'select',
-          opts: [
-            {
-              value: 0,
-              label: '厨房'
-            },
-            {
-              value: 1,
-              label: '卧室'
-            },
-            {
-              value: 2,
-              label: '客厅'
-            }
-          ]
-        },
-        {
-          model: 'location3',
-          label: '位置3',
-          type: 'select',
-          opts: [
-            {
-              value: 0,
-              label: '厨房'
-            },
-            {
-              value: 1,
-              label: '卧室'
-            },
-            {
-              value: 2,
-              label: '客厅'
-            }
-          ]
-        },
+        // {
+        //   model: 'location1',
+        //   label: '位置1',
+        //   type: 'select',
+        //   opts: [
+        //     {
+        //       value: 0,
+        //       label: '厨房'
+        //     },
+        //     {
+        //       value: 1,
+        //       label: '卧室'
+        //     },
+        //     {
+        //       value: 2,
+        //       label: '客厅'
+        //     }
+        //   ]
+        // },
+        // {
+        //   model: 'location2',
+        //   label: '位置2',
+        //   type: 'select',
+        //   opts: [
+        //     {
+        //       value: 0,
+        //       label: '厨房'
+        //     },
+        //     {
+        //       value: 1,
+        //       label: '卧室'
+        //     },
+        //     {
+        //       value: 2,
+        //       label: '客厅'
+        //     }
+        //   ]
+        // },
+        // {
+        //   model: 'location3',
+        //   label: '位置3',
+        //   type: 'select',
+        //   opts: [
+        //     {
+        //       value: 0,
+        //       label: '厨房'
+        //     },
+        //     {
+        //       value: 1,
+        //       label: '卧室'
+        //     },
+        //     {
+        //       value: 2,
+        //       label: '客厅'
+        //     }
+        //   ]
+        // },
       ],
       operateForm: {
-        location: '',
-        coordinate: '',
-        location1: '',
-        location2: '',
-        location3: '',
+        position_x: '',
+        position_y: '',
+        orientation_z: '',
+        orientation_w: '',
+        position:''
+        // location1: '',
+        // location2: '',
+        // location3: '',
       },
       formLabel: [
         {
@@ -154,32 +175,51 @@ export default {
         keyword: ''
       },
       tableData: [
-        {
-          location: '卧室',
-          coordinate: 'x: 0.531435847282 , y: 1.22645330429, z: 0.0,x: 0.0,y: 0.0,z: -0.0285912500452,w: 0.999591186646'
-        }
+        // {
+        //   location: '卧室',
+        //   coordinate: 'x: 0.531435847282 , y: 1.22645330429, z: 0.0,x: 0.0,y: 0.0,z: -0.0285912500452,w: 0.999591186646'
+        // }
+        // {
+        //   x: "1", y: '1', z : '1', w : '1'
+        // }
       ],
       tableLabel: [
         {
-          prop: 'location',
+          prop: 'id',
+          label: 'id',
+        },
+        {
+          prop: 'x',
+          label: 'positon_x',
+        },
+        {
+          prop: 'y',
+          label: 'position_y',
+        },
+        {
+          prop: 'z',
+          label: 'orientation_z',
+        },
+        {
+          prop: 'w',
+          label: 'orientation_w',
+        },
+        {
+          prop: 'position',
           label: '位置',
         },
-        {
-          prop: 'coordinate:',
-          label: '坐标',
-        },
-        {
-          prop: 'location1',
-          label: '位置1',
-        },
-        {
-          prop: 'location2',
-          label: '位置2',
-        },
-        {
-          prop: 'location3',
-          label: '位置3',
-        },
+        // {
+        //   prop: 'location1',
+        //   label: '位置1',
+        // },
+        // {
+        //   prop: 'location2',
+        //   label: '位置2',
+        // },
+        // {
+        //   prop: 'location3',
+        //   label: '位置3',
+        // },
       ],
       config: {
         page: 1,
@@ -214,14 +254,22 @@ export default {
     // 添加
     addRoboState() {
       this.isShow = true
-      this.operateType = 'add',
-          this. operateForm = {
-            location: '',
-            coordinate: '',
-            location1: '',
-            location2: '',
-            location3: ''
-          }
+      this.operateType = 'add'
+      fetch('http://localhost:5000/read-location-info')
+          .then(response => response.json())
+          .then(data => {
+            this.operateForm = {
+              position_x: data.position_x,
+              position_y: data.position_y,
+              orientation_z: data.orientation_z,
+              orientation_w: data.orientation_w,
+              postion:data.position
+            };
+            console.log(data.position_x)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
     },
     getList(name = '') {
       this.config.loading = true;
@@ -230,7 +278,7 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.location_info
+        this.tableData = res.received_json
         console.log(this.tableData);
         // this.config.total = res.location_info.length;
         this.config.loading = false;

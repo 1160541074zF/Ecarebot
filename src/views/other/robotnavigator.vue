@@ -46,7 +46,7 @@
 <script>
 import CommonFrom from '@/components/CommonForm.vue'
 import CommonTable from '@/components/CommonTable.vue'
-import {getLocation} from "@/api/data";
+import {getNavigator} from "@/api/data";
 export default {
   name: 'robotnavigator',
   components: { CommonFrom, CommonTable },
@@ -167,14 +167,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-location-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-navigator-info', this.operateForm).then(res => {
           console.log("提交的数据"+res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-location-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-navigator-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -197,7 +197,7 @@ export default {
     getList(name = '') {
       this.config.loading = true;
       name ? (this.config.page = 1) : '';
-      getLocation({
+      getNavigator({
         page: this.config.page,
         name
       }).then(({ data: res }) => {
