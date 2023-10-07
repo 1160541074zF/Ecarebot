@@ -5,7 +5,7 @@
         title="Inline Frame Example"
         width="1800"
         height="1800"
-        src="http://192.168.3.48:5000"
+        src="http://localhost:5000"
     >
     </iframe>
 

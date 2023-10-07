@@ -1,18 +1,3 @@
-<!--<template>-->
-<!--  <div>-->
-<!--    pageTwo页面-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--export default {-->
-
-<!--}-->
-<!--</script>-->
-
-<!--<style>-->
-
-<!--</style>-->
 <template>
   <div class="manage">
     <!--    <el-dialog>是Element UI 提供的对话框组件-->
@@ -36,7 +21,7 @@
 
     <div class="manage-header">
       <el-button type="primary" @click="addRoboState">+ 新增</el-button>
-      <el-button type="primary" @click="synchronisation">+ 同步</el-button>
+      <el-button type="primary" @click="synchronisation"> 同步</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -69,6 +54,11 @@ export default {
     return {
       operateType: 'add',
       isShow: false,
+      fieldMapping: {
+        1: '厨房',
+        2: '卧室',
+        3: '客厅',
+      },
       robotInfo: {
         id: '',
         location: '',
@@ -166,7 +156,7 @@ export default {
       tableData: [
         {
           location: '卧室',
-          coordinate: ''
+          coordinate: 'x: 0.531435847282 , y: 1.22645330429, z: 0.0,x: 0.0,y: 0.0,z: -0.0285912500452,w: 0.999591186646'
         }
       ],
       tableLabel: [

@@ -13,7 +13,8 @@
         :inline="true"
         ref="form"
       >
-        <img :src="require('@/assets/logo.png')" alt="加载图片" style="width: 100px;">
+        <img :src="imageUrl" alt="加载图片" style="width: 120px;">
+<!--        <img :src="require('@/assets/logo.png')" alt="加载图片" style="width: 100px;">-->
 <!--        <img :src=this.operateForm.image alt="加载图片" style="width: 100px;">-->
 <!--        <img :src="'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'" alt="加载图片" style="width: 100px;">-->
       </common-from>
@@ -72,7 +73,7 @@ export default {
         type: ''
       },
       hostUrl: 'http://localhsot:5000',
-      imageUrl: '',
+      imageUrl: require('@/assets/logo.png'),
       operateFormLabel: [
         {
           model: 'id',
@@ -143,7 +144,7 @@ export default {
         birth: '',
         sexLabel: '',
         type: '',
-        image: ''
+        image: require('@/assets/logo.png')
       },
       formLabel: [
         {
@@ -161,21 +162,21 @@ export default {
           prop: 'id',
           label: '用户id',
         },
-        {
-          prop: 'image',
-          label: '用户头像',
-          // 使用自定义的渲染函数来加载图片
-          render: (h, params) => {
-            return h('img', {
-              attrs: {
-                src: params.row.image, // 使用数据中的image属性作为图片的URL
-                alt: 'User Image',
-                width: '50',
-                height: '50',
-              },
-            });
-          },
-        },
+        // {
+        //   prop: 'image',
+        //   label: '用户头像',
+        //   // 使用自定义的渲染函数来加载图片
+        //   render: (h, params) => {
+        //     return h('img', {
+        //       attrs: {
+        //         src: params.row.image, // 使用数据中的image属性作为图片的URL
+        //         alt: 'User Image',
+        //         width: '50',
+        //         height: '50',
+        //       },
+        //     });
+        //   },
+        // },
         {
           prop: 'name',
           label: '姓名',
@@ -216,26 +217,28 @@ export default {
       if (this.operateType === 'edit') {
         this.$http.post('http://localhost:5000/update-user-info', this.operateForm).then(res => {
           console.log("表单数据"+this.operateForm.image)
+          console.log("imageUrl"+this.imageUrl)
           console.log(res.data);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm.image)
-        this.$http.post('http://localhost:5000/save-user-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-user-info', this.operateForm, this.imageUrl, {
           withCredentials: true,
         }).then(res => {
+          console.log("表单数据"+this.operateForm.image)
+          console.log("imageUrl"+this.imageUrl)
           console.log("提交的数据"+res.data);
           this.isShow = false;
           this.getList();
         });
-        // this.operateForm.image = 'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'
-        this.$http.post('http://localhost:5000/save_image_and_train', this.operateForm.name, this.operateForm.image, {
+        this.$http.post('http://localhost:5000/save_image_and_train', this.operateForm.name, this.imageUrl, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res.data);
           console.log("name"+this.operateForm.name)
-          console.log("image"+this.operateForm.image)
+          console.log("image"+this.imageUrl)
           this.isShow = false;
           this.getList();
         });
@@ -276,7 +279,7 @@ export default {
         // this.tableData = res.user_info
         this.tableData = res.user_info.map(item => {
           item.sexLabel = item.sex === 0 ? '女' : '男'
-          item.typeLabel = item.type == 0 ? '老人' : '家属'
+          item.typeLabel = item.type == 0 ? '家属' : '老人'
           return item
         })
         // const rowIndexToUpdate = 0;

@@ -116,14 +116,14 @@ export default {
         }
       ],
       operateForm: {
-        id : '',
-        name: '',
-        medname: '',
-        num: '',
-        spec: '',
-        usage: '',
-        dosage: '',
-        freq: '',
+        id : '3',
+        name: '张三',
+        medname: '口腔炎喷雾',
+        num: '3',
+        spec: '50mg',
+        usage: '外用',
+        dosage: '5mg',
+        freq: '3次/天',
         time: ''
       },
       formLabel: [

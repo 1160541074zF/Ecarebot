@@ -45,6 +45,9 @@
           ref="form"
       >
         <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
+        <el-button type="primary" @click="getList(searchForm.date)">搜索</el-button>
+        <!-- 添加日期选择器 -->
+        <el-date-picker v-model="searchForm.date" type="date" placeholder="选择日期"></el-date-picker>
       </common-from>
     </div>
 
@@ -107,6 +110,11 @@ export default {
           label: '久坐时间',
           type: 'input'
         },
+        {
+          model: 'date',
+          label: '日期',
+          type: 'input'
+        },
         // {
         //   model: 'state',
         //   label: '状态',
@@ -137,6 +145,7 @@ export default {
         id: '',
         name: '',
         sit_time: '',
+        date:''
         // date: '',
         // state: '',
         // meanHR: '',
@@ -161,7 +170,33 @@ export default {
         keyword: '',
         date: ''
       },
-      tableData: [],
+      tableData: [
+        { id: '1',
+          name: '张三',
+          sit_time: '2h10min',
+          date:'2023-7-24 16:38'
+        },
+        { id: '2',
+          name: '张三',
+          sit_time: '1h45min',
+          date:'2023-7-26 12:50'
+        },
+        { id: '3',
+          name: '张三',
+          sit_time: '1h32min',
+          date:'2023-7-26 18:34'
+        },
+        { id: '4',
+          name: '张三',
+          sit_time: '1h52min',
+          date:'2023-7-27 19:42'
+        },
+        { id: '5',
+          name: '张三',
+          sit_time: '2h05min',
+          date:'2023-7-29 9:56'
+        },
+      ],
       tableLabel: [
         {
           prop: 'id',
@@ -175,6 +210,10 @@ export default {
           prop: 'sit_time',
           label: '久坐时间',
         },
+        {
+          prop: 'date',
+          label: '日期',
+        }
         // {
         //   prop: 'date',
         //   label: '日期',
