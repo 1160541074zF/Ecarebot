@@ -61,3 +61,11 @@ export const getPicture = () => {
     method: 'post'
   })
 }
+
+export const getHealth = (params) => {
+  return axios.request({
+    url: 'http://localhost:5000/read-health-info',
+    method: 'get',
+    params
+  })
+}
