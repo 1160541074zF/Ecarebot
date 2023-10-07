@@ -39,9 +39,9 @@ export const getState = (params) => {
   })
 }
 
-export const getLocation = (params) => {
+export const getPosition = (params) => {
   return axios.request({
-    url: 'http://localhost:5000/read-location-info',
+    url: 'http://localhost:5000/read-position-info',
     method: 'get',
     params
   })

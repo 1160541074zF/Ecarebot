@@ -46,7 +46,7 @@
 <script>
 import CommonFrom from '@/components/CommonForm.vue'
 import CommonTable from '@/components/CommonTable.vue'
-import {getLocation} from "@/api/data";
+import {getPosition} from "@/api/data";
 export default {
   name: 'robotstate',
   components: { CommonFrom, CommonTable },
@@ -231,14 +231,14 @@ export default {
   methods: {
     confirm() {
       if (this.operateType === 'edit') {
-        this.$http.post('http://localhost:5000/update-location-info', this.operateForm).then(res => {
+        this.$http.post('http://localhost:5000/update-position-info', this.operateForm).then(res => {
           console.log("提交的数据"+res);
           this.isShow = false;
           this.getList();
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-location-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/save-position-info', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);
@@ -255,17 +255,19 @@ export default {
     addRoboState() {
       this.isShow = true
       this.operateType = 'add'
-      fetch('http://localhost:5000/read-location-info')
+      fetch('http://localhost:5000/get-position-info')
           .then(response => response.json())
           .then(data => {
             this.operateForm = {
-              position_x: data.position_x,
-              position_y: data.position_y,
-              orientation_z: data.orientation_z,
-              orientation_w: data.orientation_w,
-              postion:data.position
+              position_x: data.x,
+              position_y: data.y,
+              orientation_z: data.z,
+              orientation_w: data.w,
             };
-            console.log(data.position_x)
+            console.log(data.x)
+            console.log(data.y)
+            console.log(data.z)
+            console.log(data.w)
           })
           .catch(error => {
             console.error('Error:', error);
@@ -274,7 +276,7 @@ export default {
     getList(name = '') {
       this.config.loading = true;
       name ? (this.config.page = 1) : '';
-      getLocation({
+      getPosition({
         page: this.config.page,
         name
       }).then(({ data: res }) => {
@@ -296,7 +298,7 @@ export default {
         type: 'warning'
       }).then( () => {
         const id = row.id
-        this.$http.post('/user/del', {
+        this.$http.post('http://localhost:5000/delete-position-info/${id}', {
           params: { id }
         }).then(res => {
           this.$message({
