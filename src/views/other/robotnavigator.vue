@@ -73,15 +73,19 @@ export default {
           opts: [
             {
               value: 0,
-              label: '厨房'
+              label: 'start point'
             },
             {
               value: 1,
-              label: '卧室'
+              label: 'bedroom'
             },
             {
               value: 2,
-              label: '客厅'
+              label: 'living room'
+            },
+            {
+              value: 3,
+              label: 'kitchen'
             }
           ]
         },
@@ -92,15 +96,19 @@ export default {
           opts: [
             {
               value: 0,
-              label: '厨房'
+              label: 'start point'
             },
             {
               value: 1,
-              label: '卧室'
+              label: 'bedroom'
             },
             {
               value: 2,
-              label: '客厅'
+              label: 'living room'
+            },
+            {
+              value: 3,
+              label: 'kitchen'
             }
           ]
         },
@@ -111,15 +119,19 @@ export default {
           opts: [
             {
               value: 0,
-              label: '厨房'
+              label: 'start point'
             },
             {
               value: 1,
-              label: '卧室'
+              label: 'bedroom'
             },
             {
               value: 2,
-              label: '客厅'
+              label: 'living room'
+            },
+            {
+              value: 3,
+              label: 'kitchen'
             }
           ]
         },
@@ -174,7 +186,7 @@ export default {
         });
       } else {
         console.log("表单数据"+this.operateForm)
-        this.$http.post('http://localhost:5000/save-navigator-info', this.operateForm, {
+        this.$http.post('http://localhost:5000/position-priority', this.operateForm, {
           withCredentials: true,
         }).then(res => {
           console.log("提交的数据"+res);

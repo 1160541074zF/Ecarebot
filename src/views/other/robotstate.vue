@@ -189,23 +189,23 @@ export default {
           label: 'id',
         },
         {
-          prop: 'x',
-          label: 'positon_x',
+          prop: 'pos_x',
+          label: 'pos_x',
         },
         {
-          prop: 'y',
-          label: 'position_y',
+          prop: 'pos_y',
+          label: 'pos_y',
         },
         {
-          prop: 'z',
-          label: 'orientation_z',
+          prop: 'ori_z',
+          label: 'ori_z',
         },
         {
-          prop: 'w',
-          label: 'orientation_w',
+          prop: 'ori_w',
+          label: 'ori_w',
         },
         {
-          prop: 'position',
+          prop: 'positionName',
           label: '位置',
         },
         // {
@@ -280,7 +280,7 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.received_json
+        this.tableData = res.location_info
         console.log(this.tableData);
         // this.config.total = res.location_info.length;
         this.config.loading = false;
