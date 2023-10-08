@@ -157,16 +157,28 @@ export default {
           label: 'id',
         },
         {
-          prop: 'location1Label',
-          label: '位置1',
+          prop: 'pos_x',
+          label: 'pos_x',
         },
         {
-          prop: 'location2',
-          label: '位置2',
+          prop: 'pos_y',
+          label: 'pos_y',
         },
         {
-          prop: 'location3',
-          label: '位置3',
+          prop: 'ori_z',
+          label: 'ori_z',
+        },
+        {
+          prop: 'ori_w',
+          label: 'ori_w',
+        },
+        {
+          prop: 'positionName',
+          label: 'positionName',
+        },
+        {
+          prop: 'priority',
+          label: 'priority',
         },
       ],
       config: {
@@ -213,7 +225,7 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.location_data;
+        this.tableData = res.navigator_info;
         this.config.total = res.count;
         this.config.loading = false;
       });

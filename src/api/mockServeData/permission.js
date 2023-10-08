@@ -56,7 +56,14 @@ export default {
                   label: '心率监测',
                   icon: 'setting',
                   url: 'user/health.vue'
-                }
+                },
+                // {
+                //   path: '/robotnavigator',
+                //   name: 'robotnavigator',
+                //   label: '机器人导航',
+                //   icon: 'setting',
+                //   url: 'other/robotnavigator.vue'
+                // }
               ]
             },
             // {
