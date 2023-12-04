@@ -97,7 +97,28 @@ export default {
                   label: '机器人导航',
                   icon: 'setting',
                   url: 'other/robotnavigator.vue'
+                },
+                {
+                  path: '/robotchat',
+                  name: 'robotchat',
+                  label: '机器人对话',
+                  icon: 'setting',
+                  url: 'other/robotchat.vue'
                 }
+              ]
+            },
+            {
+              label: '服务管理',
+              icon: 'service',
+              children: [
+
+                {
+                  path: '/service',
+                  name: 'service',
+                  label: '服务列表',
+                  icon: 'setting',
+                  url: 'service/service.vue'
+                },
               ]
             }
           ],

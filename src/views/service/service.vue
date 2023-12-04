@@ -1,22 +1,22 @@
 <template>
   <div class="manage">
-<!--    <el-dialog>是Element UI 提供的对话框组件-->
-<!--    新增/更新用户-->
+    <!--    <el-dialog>是Element UI 提供的对话框组件-->
+    <!--    新增/更新用户-->
     <el-dialog
-      :title="operateType === 'add' ? '新增用户' : '更新用户'"
-      :visible.sync = 'isShow'
+        :title="operateType === 'add' ? '新增用户' : '更新用户'"
+        :visible.sync = 'isShow'
     >
-<!--      表单组件-->
+      <!--      表单组件-->
       <common-from
-        :formLabel="operateFormLabel"
-        :form="operateForm"
-        :inline="true"
-        ref="form"
+          :formLabel="operateFormLabel"
+          :form="operateForm"
+          :inline="true"
+          ref="form"
       >
         <img :src="imageUrl" alt="加载图片" style="width: 120px;">
-<!--        <img :src="require('@/assets/logo.png')" alt="加载图片" style="width: 100px;">-->
-<!--        <img :src=this.operateForm.image alt="加载图片" style="width: 100px;">-->
-<!--        <img :src="'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'" alt="加载图片" style="width: 100px;">-->
+        <!--        <img :src="require('@/assets/logo.png')" alt="加载图片" style="width: 100px;">-->
+        <!--        <img :src=this.operateForm.image alt="加载图片" style="width: 100px;">-->
+        <!--        <img :src="'http://localhost:5000/Fay-main/gui/static/source/img/picture.jpg'" alt="加载图片" style="width: 100px;">-->
       </common-from>
 
       <div slot="footer" class="dialog-footer">
@@ -28,23 +28,23 @@
 
     <div class="manage-header">
       <el-button type="primary" @click="addUser">+ 新增</el-button>
-       <common-from
-        :formLabel="formLabel"
-        :form="searchForm"
-        :inline="true"
-        ref="form"
+      <common-from
+          :formLabel="formLabel"
+          :form="searchForm"
+          :inline="true"
+          ref="form"
       >
         <el-button type="primary" @click="getList(searchForm.keyword)">搜索</el-button>
       </common-from>
     </div>
 
     <common-table
-      :tableData="tableData"
-      :tableLabel="tableLabel"
-      :config="config"
-      @changePage="getList()"
-      @edit="editUser"
-      @del="delUser"
+        :tableData="tableData"
+        :tableLabel="tableLabel"
+        :config="config"
+        @changePage="getList()"
+        @edit="editUser"
+        @del="delUser"
     ></common-table>
   </div>
 </template>
@@ -234,14 +234,14 @@ export default {
           this.getList();
         });
         axios.post('http://localhost:5000/save_image_and_train', {
-          filename: this.operateForm.name,
-          image_data: this.imageUrl
+          name: this.operateForm.name,
+          image: this.imageUrl
         }, {
           withCredentials: true
         }).then(res => {
           console.log("提交的数据" + res.data);
-          console.log("name：" + this.operateForm.name);
-          console.log("imageUrl:" + this.imageUrl);
+          console.log("name" + this.operateForm.name);
+          console.log("image" + this.imageUrl);
           this.isShow = false;
           this.getList();
         }).catch(error => {
@@ -253,14 +253,14 @@ export default {
     addUser() {
       this.isShow = true
       this.operateType = 'add',
-      this. operateForm = {
-        name: '',
-        // addr: '',
-        age: '',
-        birth: '',
-        sex: '',
-        type: '',
-      }
+          this. operateForm = {
+            name: '',
+            // addr: '',
+            age: '',
+            birth: '',
+            sex: '',
+            type: '',
+          }
     },
     refreshPicture() {
       // 调用 getPicture 函数来获取图像数据

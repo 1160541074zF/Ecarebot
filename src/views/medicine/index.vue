@@ -207,19 +207,43 @@ export default {
 
     },
     // 添加
+    // addMed() {
+    //   this.isShow = true
+    //   this.operateType = 'add',
+    //       this. operateForm = {
+    //         name: '',
+    //         medname: '',
+    //         num: '',
+    //         spec: '',
+    //         usage: '',
+    //         dosage: '',
+    //         freq: '',
+    //         time: ''
+    //       }
+    // },
+    // 添加
     addMed() {
       this.isShow = true
-      this.operateType = 'add',
-          this. operateForm = {
-            name: '',
-            medname: '',
-            num: '',
-            spec: '',
-            usage: '',
-            dosage: '',
-            freq: '',
-            time: ''
-          }
+      this.operateType = 'add'
+      fetch('http://localhost:5000/get-med-info')
+          .then(response => response.json())
+          .then(data => {
+            this.operateForm = {
+              id : '',
+              name: '',
+              medname: data.med_name,
+              num: data.med_num,
+              spec: data.med_spec,
+              usage: data.med_usage,
+              dosage: data.med_dosage,
+              freq: data.med_freq,
+              time: ''
+            };
+            console.log(data.med_name)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
     },
     getList(name = '') {
       this.config.loading = true;

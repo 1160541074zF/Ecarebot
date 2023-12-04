@@ -20,7 +20,8 @@
     </el-dialog>
 
     <div class="manage-header">
-      <el-button type="primary" @click="addLocation">+ 新增</el-button>
+      <el-button type="primary" @click="addNavigator">+ 新增</el-button>
+      <el-button type="primary" @click="getList">  刷新</el-button>
       <common-from
           :formLabel="formLabel"
           :form="searchForm"
@@ -36,8 +37,8 @@
         :tableLabel="tableLabel"
         :config="config"
         @changePage="getList()"
-        @edit="editLocation"
-        @del="delLocation"
+        @edit="editNavigator"
+        @del="delNavigator"
     ></common-table>
   </div>
 </template>
@@ -208,7 +209,7 @@ export default {
       }
     },
     // 添加
-    addLocation() {
+    addNavigator() {
       this.isShow = true
       this.operateType = 'add',
           this. operateForm = {
@@ -225,17 +226,17 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.navigator_info;
+        this.tableData = res.navigator_data;
         this.config.total = res.count;
         this.config.loading = false;
       });
     },
-    editLocation(row) {
+    editNavigator(row) {
       this.operateType = 'edit'
       this.isShow = true
       this.operateForm = row
     },
-    delLocation(row) {
+    delNavigator(row) {
       this.$confirm("此操作将永久删除该文件，是否继续", "提示", {
         confirmButtonText: '确认',
         cancelButtonText: '取消',

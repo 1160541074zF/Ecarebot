@@ -21,6 +21,7 @@
 
     <div class="manage-header">
       <el-button type="primary" @click="addRoboState">+ 新增</el-button>
+      <el-button type="primary" @click="getList"> 刷新</el-button>
       <el-button type="primary" @click="synchronisation"> 同步</el-button>
       <common-from
           :formLabel="formLabel"
@@ -280,7 +281,7 @@ export default {
         page: this.config.page,
         name
       }).then(({ data: res }) => {
-        this.tableData = res.location_info
+        this.tableData = res.position_info
         console.log(this.tableData);
         // this.config.total = res.location_info.length;
         this.config.loading = false;
